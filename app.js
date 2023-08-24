@@ -34,8 +34,13 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+//Routes
+import authRouter from "./route/authRoute.js";
+
 // ROUTES WITH FILES
-app.post("/auth/registers", upload.single("picture"), register);
+// app.post("/auth/registers", upload.single("picture"), register);
+
+app.use("/api/v1/auth/register", authRouter);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
@@ -45,7 +50,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    app.listen(PORT, () => console.log(`Server listening to port ${PORT}...`));
 
     /* ADD DATA ONE TIME */
     // User.insertMany(users);
